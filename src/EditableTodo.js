@@ -25,10 +25,11 @@ function EditableTodo({ todo, update, remove }) {
     remove(todo.id);
   }
 
+  /// STUCK ON THE update... remember
   /** Edit form saved; toggle isEditing and update in ancestor. */
   function handleSave(formData) {
-    update(formData);
-    toggleEdit();
+    update({ id: todo.id, ...formData });
+    setIsEditing(false);
   }
 
   function renderToDo() {

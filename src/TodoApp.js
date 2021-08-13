@@ -26,9 +26,8 @@ function TodoApp({ initialTodos = [] }) {
 
   /** update a todo with updatedTodo */
   function update(updatedTodo) {
-    const todosCopy = [...todos];
     setTodos((todos) =>
-      todosCopy.map((t) => (t.id === updatedTodo.id ? updatedTodo : t))
+      todos.map((t) => (t.id === updatedTodo.id ? updatedTodo : t))
     );
   }
 
