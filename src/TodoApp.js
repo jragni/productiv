@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { v4 as uuid } from "uuid";
-
+import TodoForm from "./TodoForm";
 import TopTodo from "./TopTodo";
 import EditableTodoList from "./EditableTodoList";
 
@@ -20,7 +20,7 @@ function TodoApp({ initialTodos = [] }) {
   /** add a new todo to list */
   function create(newTodo) {
     // define a deep copy of the todo.
-    const todo = { ...newTodo, id: uuid() };
+    const todo = { ...newTodo, key: uuid(), id: uuid() };
     setTodos((todos) => [...todos, todo]);
   }
 
@@ -31,8 +31,6 @@ function TodoApp({ initialTodos = [] }) {
       todosCopy.map((t) => (t.id === updatedTodo.id ? updatedTodo : t))
     );
   }
-  //after line 46 <EditableTodoList /> OR
-  //<span className="text-muted">You have no todos.</span>
 
   /** delete a todo by id */
   function remove(id) {
@@ -44,21 +42,20 @@ function TodoApp({ initialTodos = [] }) {
       <div className="row">
         <div className="col-md-6">
           {todos.length !== 0 ? (
-            <EditableTodoList />
+            <EditableTodoList update={update} remove={remove} todos={todos} />
           ) : (
             <span className="text-muted">You have no todos.</span>
           )}
         </div>
 
         <div className="col-md-6">
-          (if no top todo, omit this whole section)
           <section className="mb-4">
             <h3>Top Todo</h3>
-            <TopTodo />
+            <TopTodo todos={todos} />
           </section>
           <section>
             <h3 className="mb-3">Add Nü</h3>
-            FIXME
+            <TodoForm handleSave={create} />
           </section>
         </div>
       </div>
